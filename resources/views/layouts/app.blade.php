@@ -79,7 +79,7 @@
 
                         <ul class="nav col-12 col-lg-auto justify-content-center my-md-0 text-small">
                             <li>
-                                <a href="{{ route('home) }}" class="nav-link text-white">
+                                <a href="{{ route('home') }}" class="nav-link text-white">
                                     <i class="fas fa-tachometer-alt"></i>
                                     Dashboard
                                     {{--{{$constants::UserType_Admin}}--}}
