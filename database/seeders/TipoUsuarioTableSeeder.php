@@ -15,6 +15,13 @@ class TipoUsuarioTableSeeder extends Seeder
     public function run()
     {
         tipoUsuario::create([
+            'tipo' => 'Admin',
+            'idSituacao' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        tipoUsuario::create([
             'tipo' => 'Empresas',
             'idSituacao' => 1,
             'created_at' => now(),

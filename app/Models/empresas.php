@@ -21,4 +21,9 @@ class empresas extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function empregados()
+    {
+        return $this->hasMany(empregados::class,'idEmpresa','idEmpresa');
+    }
 }

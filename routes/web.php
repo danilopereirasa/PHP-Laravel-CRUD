@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EmpresasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,9 @@ Route::get('/', function () {
 Auth::routes();
 
 //Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+//Route::get('/empresas', [HomeController::class, 'index'])->name('empresas');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::resource('empresas',EmpresasController::class)
+    ->names('business')->parameters(['empresas' => 'business']);
+

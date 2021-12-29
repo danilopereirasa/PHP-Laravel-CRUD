@@ -16,7 +16,18 @@ class UsuariosTableSeeder extends Seeder
     {
         User::create([
             'idTipoUsuario' => 1,
-            'id' => 1,
+            'idRelacao' => 1,
+            'name' => 'Danilo Pereira Sá',
+            'email' => 'danilo@productweb.com.br',
+            'password' => bcrypt('123456'),
+            'idSituacao' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        User::create([
+            'idTipoUsuario' => 2,
+            'idRelacao' => 1,
             'name' => 'B2W - Americanas',
             'email' => 'b2wamericanas@gmail.com',
             'password' => bcrypt('123456'),
@@ -26,8 +37,8 @@ class UsuariosTableSeeder extends Seeder
         ]);
 
         User::create([
-            'idTipoUsuario' => 1,
-            'id' => 2,
+            'idTipoUsuario' => 2,
+            'idRelacao' => 2,
             'name' => 'B2W - Submarino',
             'email' => 'b2wsubmarino@gmail.com',
             'password' => bcrypt('123456'),
