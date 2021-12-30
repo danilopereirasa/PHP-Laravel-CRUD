@@ -124,7 +124,7 @@ class EmpresasController extends Controller
 
             empresas::where('idEmpresa', $idEmpresa)->update($business);
 
-            
+
             $user['name'] = $request->nome;
             $user['email'] = $request->email;
             $user['idTipoUsuario'] = Constants::UserType_Empresa;

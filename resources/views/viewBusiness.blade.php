@@ -8,7 +8,7 @@
 <div class="container">
     <main class="col-12">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Empresas</h1>
+            <h1 class="h2"><a href="{{route('business.index')}}" class="text-b2wAme"><i class="far fa-arrow-alt-circle-left"></i></a> Visualizar Empresa</h1>
             <span class="float-right"><button class="btn btn-outline-b2wAme" data-toggle="modal" data-target="#ModalViewBusinessEmpregados">Visualizar Empregados <i class="fa fa-user"></i></button></span>
 
         </div>
