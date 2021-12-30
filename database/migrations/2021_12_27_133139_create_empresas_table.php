@@ -17,7 +17,7 @@ class CreateEmpresasTable extends Migration
             $table->bigIncrements('idEmpresa');
             $table->string('nome');
             $table->string('endereco');
-            $table->string('logotipo');
+            $table->string('logotipo')->nullable();
             $table->string('website')->nullable();
             $table->boolean('idSituacao');
             $table->timestamps();

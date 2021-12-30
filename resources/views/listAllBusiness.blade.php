@@ -9,6 +9,7 @@
     <main class="col-12">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Empresas</h1>
+            <a href="{{route('business.create')}}" type="button" class="btn btn-b2wAme btn-md"><i class="fa fa-plus"></i> Adicionar</a>
         </div>
 
         <table class="table table-striped table-sm">
@@ -35,8 +36,8 @@
                 </td>
                 <td class="text-right">
                     <a href="{{Route('business.show', [$company->idEmpresa])}}" class="btn btn-sm btn-b2wAme"><i class="fa fa-eye"></i></a>
-                    <a href="" class="btn btn-sm btn-outline-b2wAme"><i class="fas fa-pencil-alt"></i></a>
-                    <a href="" class="btn btn-sm btn-outline-b2wAme"><i class="fas fa-user"></i></a>
+                    <a href="{{Route('business.edit', [$company->idEmpresa])}}" class="btn btn-sm btn-outline-b2wAme"><i class="fas fa-pencil-alt"></i></a>
+                    {{--<a href="" class="btn btn-sm btn-outline-b2wAme"><i class="fas fa-user"></i></a>--}}
                 </td>
             </tr>
             @endforeach

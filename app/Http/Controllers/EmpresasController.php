@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Config\Constants;
 use App\Models\empresas;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use \Exception;
 
 class EmpresasController extends Controller
 {
@@ -25,7 +30,7 @@ class EmpresasController extends Controller
      */
     public function create()
     {
-        //
+        return view('newBusiness');
     }
 
     /**
@@ -36,7 +41,37 @@ class EmpresasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+
+            if(!empty(User::where('email',$request->email)->where('idTipoUsuario', Constants::UserType_Empresa)->first())){
+                throw new Exception('Já existe um usuário com este email.', 200);
+            }
+
+            DB::beginTransaction();
+
+            $business = new empresas();
+            $business->nome = $request->nome;
+            $business->endereco = $request->endereco;
+            $business->website = $request->website;
+            $business->idSituacao = 1;
+            $business->save();
+
+            $user = new User();
+            $user->name = $request->nome;
+            $user->email = $request->email;
+            $user->idTipoUsuario = Constants::UserType_Empresa;
+            $user->idRelacao = $business->idEmpresa;
+            $user->password = Hash::make($request->password);
+            $user->idSituacao = 1;
+            $user->save();
+
+            DB::commit();
+
+            return redirect()->route('business.index');
+        }catch (Exception $e){
+            DB::rollBack();
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
     }
 
     /**
@@ -57,9 +92,13 @@ class EmpresasController extends Controller
      * @param  \App\Models\empresas  $empresas
      * @return \Illuminate\Http\Response
      */
-    public function edit(empresas $empresas)
+    public function edit($idEmpresa)
     {
-        //
+        $business = empresas::with(['empregados','usuario' => function ($query) {
+            $query->where('idTipoUsuario', Constants::UserType_Empresa);
+        }])->where('idEmpresa', $idEmpresa)->first();
+
+        return view('editBusiness',['business'=>$business]);
     }
 
     /**
@@ -69,9 +108,41 @@ class EmpresasController extends Controller
      * @param  \App\Models\empresas  $empresas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, empresas $empresas)
+    public function update(Request $request, $idEmpresa)
     {
-        //
+        try{
+            if(!empty(User::where('email',$request->email)->where('idTipoUsuario', Constants::UserType_Empresa)
+                ->whereNotIn('idRelacao',[$idEmpresa])->first())){
+                throw new Exception('Já existe um usuário com este email.', 200);
+            }
+
+            DB::beginTransaction();
+
+            $business['nome'] = $request->nome;
+            $business['endereco'] = $request->endereco;
+            $business['website'] = $request->website;
+
+            empresas::where('idEmpresa', $idEmpresa)->update($business);
+
+            
+            $user['name'] = $request->nome;
+            $user['email'] = $request->email;
+            $user['idTipoUsuario'] = Constants::UserType_Empresa;
+
+            if(!empty($request->password)) {
+                $user['password'] = Hash::make($request->password);
+            }
+
+            User::where('idTipoUsuario', Constants::UserType_Empresa)->where('idRelacao',$idEmpresa)
+                ->update($user);
+
+            DB::commit();
+
+            return redirect()->route('business.index');
+        }catch (Exception $e){
+            DB::rollBack();
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
     }
 
     /**

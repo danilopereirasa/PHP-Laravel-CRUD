@@ -17,11 +17,11 @@
         <div class="row">
             <div class="col-6 pb-3">
                 <small class="pr-4"><b>Data de Criação</b><br>
-                    {{$business->created_at}}</small>
+                    {{date('d/m/Y H:m:s', strtotime($business->created_at))}}</small>
             </div>
             <div class="col-6 pb-3">
                 <small><b>Data de Alteração</b><br>
-                    {{$business->updated_at}}</small>
+                    {{date('d/m/Y H:m:s', strtotime($business->updated_at))}}</small>
             </div>
 
             <div class="col-6 pb-3">
@@ -33,7 +33,7 @@
                 {{$business->endereco}}
             </div>
             <div class="col-6 pb-3">
-                <label for="endereco"><b>Site</b></label><br>
+                <label for="website"><b>Site</b></label><br>
                 {{$business->website}}
             </div>
         </div>
